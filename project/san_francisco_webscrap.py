@@ -18,9 +18,15 @@ class SanFranciscoWebScrap:
 
     def __init__(self, in_web_link: str):
         self.sf_link = in_web_link
-        sf_response = req.get(url=in_web_link)
+        a_headers = {
+            'Accept-Language': 'en,en-US;q=0.9,pt;q=0.8',
+            'Connection': 'keep - alive',
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36',
+        }
+        sf_response = req.get(url=in_web_link, headers=a_headers)
         sf_html_page_str = sf_response.text
         self.sf_soup = BeautifulSoup(markup=sf_html_page_str, features='html.parser')
+        print(self.sf_soup.prettify())
         return
 
     def webscrap_addresses(self) -> list:
@@ -30,10 +36,19 @@ class SanFranciscoWebScrap:
 
     def webscrap_prices(self) -> list:
         out_prices = []
-        out_addresses = self.sf_soup.find_all(name='div', class_='list-card-price')
+        out_prices = self.sf_soup.find_all(name='div', class_='list-card-price')
         return out_prices
 
     def webscrap_web_links(self) -> list:
         out_links = []
-        out_addresses = self.sf_soup.find_all(name='a', class_='list-card-link list-card-link-top-margin')
+        out_links = self.sf_soup.find_all(name='a', class_='list-card-link list-card-link-top-margin')
         return out_links
+
+
+if __name__ == '__main__':
+    a_web_scrap = SanFranciscoWebScrap(URL_TO_WEBSCRAP)
+    a_address_list = a_web_scrap.webscrap_addresses()
+    a_prices_list = a_web_scrap.webscrap_prices()
+    a_web_links_list = a_web_scrap.webscrap_web_links()
+    # TODO: Scroll down more pages until hit the end of the page at least if not all results.
+    pass
