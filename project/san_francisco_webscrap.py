@@ -14,7 +14,7 @@ URL_TO_WEBSCRAP = 'https://www.zillow.com/homes/for_rent/1-_beds/?searchQuerySta
                   '%22%3A%7B%22min%22%3A1%7D%7D%2C%22isListVisible%22%3Atrue%2C%22mapZoom%22%3A12%7D'
 
 
-class SanFranciscoWebScrap:
+class SanFranciscoWebScrape:
 
     def __init__(self, in_web_link: str):
         self.sf_link = in_web_link
@@ -46,7 +46,7 @@ class SanFranciscoWebScrap:
 
 
 if __name__ == '__main__':
-    a_web_scrap = SanFranciscoWebScrap(URL_TO_WEBSCRAP)
+    a_web_scrap = SanFranciscoWebScrape(URL_TO_WEBSCRAP)
     a_address_list = a_web_scrap.webscrap_addresses()
     a_prices_list = a_web_scrap.webscrap_prices()
     a_web_links_list = a_web_scrap.webscrap_web_links()
